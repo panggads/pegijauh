@@ -16,21 +16,21 @@
 <x-app-layout>
     <div class="pb-4 ">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Tambah Destinasi') }}
+            {{ __('Tambah Team') }}
         </h2>
     </div>
 
 
     <div class="block p-6 rounded-lg shadow-lg bg-white">
-        <!--div class="card-header">Tambah Destinasi</div-->
+        <!--div class="card-header">Tambah Team</div-->
         <div class="card-body">
 
-            <form method="POST" action="{{ route('destinasi.store') }}">
+            <form method="POST" action="{{ route('team.store') }}">
                 @csrf
                 
                 <div class="mb-6">
-                    <label for="nama" class="{{ $label_style }}">Nama Destinasi</label>
-                    <input name="nama" type="text" id="nama" class="{{ $input_style }}" placeholder="Tulis nama Destinasi" required>
+                    <label for="nama" class="{{ $label_style }}">Nama</label>
+                    <input name="nama" type="text" id="nama" class="{{ $input_style }}" placeholder="Tulis nama" required>
                     @error('nama')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -39,9 +39,9 @@
                 </div>
 
                 <div class="mb-6">
-                    <label for="lokasi" class="{{ $label_style }}">Lokasi</label>
-                    <input name="lokasi" type="text" id="lokasi" class="{{ $input_style }}" placeholder="Lokasi (ex. Banyuwangi, Jawa Timur)" required>
-                    @error('lokasi')
+                    <label for="posisi" class="{{ $label_style }}">Posisi</label>
+                    <input name="posisi" type="text" id="posisi" class="{{ $input_style }}" placeholder="Posisi (ex. Team leader etc)" required>
+                    @error('posisi')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -50,8 +50,38 @@
                 
                 <div class="mb-6">
                     <label for="keterangan" class="{{ $label_style }}">Caption</label>
-                    <input name="keterangan" type="text" id="keterangan" class="{{ $input_style }}" placeholder="Tulis caption (ex. Experience the wonder of Papuma)" required>
+                    <input name="keterangan" type="text" id="keterangan" class="{{ $input_style }}" placeholder="Tulis caption">
                     @error('keterangan')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
+                <div class="mb-6">
+                    <label for="ig" class="{{ $label_style }}">Instagram</label>
+                    <input name="ig" type="text" id="ig" class="{{ $input_style }}" placeholder="Url Instagram">
+                    @error('ig')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
+                <div class="mb-6">
+                    <label for="twitter" class="{{ $label_style }}">Twitter</label>
+                    <input name="twitter" type="text" id="twitter" class="{{ $input_style }}" placeholder="Url Twitter">
+                    @error('twitter')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
+                <div class="mb-6">
+                    <label for="wa" class="{{ $label_style }}">Whatsapp</label>
+                    <input name="wa" type="text" id="wa" class="{{ $input_style }}" placeholder="Tulis nomor WA">
+                    @error('wa')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

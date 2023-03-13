@@ -12,7 +12,7 @@
                 var searchTerm = $('#searchTerm').val();
 
                 $.ajax({
-                    url: '{{ route("destinasi.index") }}',
+                    url: '{{ route("layanan.index") }}',
                     method: 'GET',
                     data: { searchTerm: searchTerm },
                     success: function(response) {
@@ -22,9 +22,9 @@
 
                         $.each(response.data.data, function(index, berita) {
                             var row = '<tr>' +
-                                '<td>' + destinasi.title + '</td>' +
-                                '<td>' + destinasi.body + '</td>' +
-                                '<td>' + destinasi.created_at + '</td>' +
+                                '<td>' + layanan.title + '</td>' +
+                                '<td>' + layanan.body + '</td>' +
+                                '<td>' + layanan.created_at + '</td>' +
                                 '</tr>';
 
                             tbody.append(row);
@@ -56,9 +56,9 @@
 
                         $.each(response.data.data, function(index, berita) {
                             var row = '<tr>' +
-                                '<td>' + destinasi.title + '</td>' +
-                                '<td>' + destinasi.body + '</td>' +
-                                '<td>' + destinasi.created_at + '</td>' +
+                                '<td>' + layanan.title + '</td>' +
+                                '<td>' + layanan.body + '</td>' +
+                                '<td>' + layanan.created_at + '</td>' +
                                 '</tr>';
 
                             tbody.append(row);
@@ -89,20 +89,20 @@
     <div class="sm:flex sm:items-center sm:justify-between">
         <div>
             <div class="flex items-center gap-x-3">
-                <h2 class="text-lg font-medium text-gray-800 dark:text-white">Data Destinasi</h2>
+                <h2 class="text-lg font-medium text-gray-800 dark:text-white">Data Layanan</h2>
 
-                <span class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">{{ count($destinasis); }} destinasi</span>
+                <span class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">{{ count($layanans); }} Layanan</span>
             </div>
 
-            <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">Menampilkan semua data Destinasi</p>
+            <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">Menampilkan semua data Layanan</p>
         </div>
 
         <div class="mt-4 md:mt-0">
-            <a href="{{ route('destinasi.create') }}" class="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-sky-600 rounded-lg shrink-0 sm:w-auto gap-x-2 hover:bg-blue-600 dark:hover:bg-blue-500 dark:bg-blue-600">
+            <a href="{{ route('layanan.create') }}" class="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-sky-600 rounded-lg shrink-0 sm:w-auto gap-x-2 hover:bg-blue-600 dark:hover:bg-blue-500 dark:bg-blue-600">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <span>Tambah Destinasi</span>
+                <span>Tambah Layanan</span>
             </a>
         </div>
     </div>
@@ -140,7 +140,7 @@
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
                             
-                            @foreach ($destinasis as $data)
+                            @foreach ($layanans as $data)
                                 <tr>
                                     <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
                                         <div>
@@ -160,7 +160,8 @@
                                         <div id="dropdownDots-{{$data->id}}" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
                                             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownMenuIconButton">
                                                 <li>
-                                                    <a href="{{ route('destinasi.show', $data->id) }}" class="my-auto flex px-4 py-2 hover:bg-gray-100">
+                                
+                                                    <a href="{{ route('layanan.show', $data->id) }}" class="my-auto flex px-4 py-2 hover:bg-gray-100">
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
                                                             <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
                                                             <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -168,17 +169,7 @@
                                                         <span class="ml-2">View</span>
                                                     </a>
                                                 </li>
-
-                                                <li>
-                                                    <a href="{{ route('galeri.show', $data->id) }}" class="my-auto flex px-4 py-2 hover:bg-gray-100">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                        </svg>
-                                                        <span class="ml-2">Manage Galeri</span>
-                                                    </a>
-                                                </li>
-
+     
                                                 <li>
                                                     <a href="#" onclick="event.preventDefault(); if (confirm('Are you sure you want to delete this item?')) { document.getElementById('delete-form-{{$data->id}}').submit(); }" class="my-auto flex px-4 py-2 hover:bg-gray-100">
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
@@ -186,7 +177,7 @@
                                                         </svg>
                                                         <span class="ml-2">Delete</span>
                                                     </a>
-                                                    <form id="delete-form-{{$data->id}}" action="{{ route('destinasi.destroy', $data->id) }}" method="POST" style="display: none;">
+                                                    <form id="delete-form-{{$data->id}}" action="{{ route('layanan.destroy', $data->id) }}" method="POST" style="display: none;">
                                                         @csrf
                                                         @method('DELETE')
                                                     </form>
@@ -210,7 +201,7 @@
 
     <div class="mt-6 sm:flex sm:items-center sm:justify-between ">
         <div class="text-sm text-gray-500 dark:text-gray-400">
-            {{ $destinasis->links() }}
+            {{ $layanans->links() }}
         </div>
     </div>
 </section>

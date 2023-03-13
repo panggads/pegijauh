@@ -2,7 +2,7 @@
     $input_style = 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500';
     $label_style = 'block mb-2 text-sm font-medium text-gray-900 dark:text-white';
     $main_button = 'text-white bg-gray-700 hover:bg-blugraye-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800';
-    $coverUrl = $destinasi->cover ? asset('storage/img/destinasi/' . $destinasi->cover) : null;
+
 ?>
 
 @push('styles')
@@ -89,12 +89,12 @@ $(document).on('submit', '#image-upload-form', function(event) {
                         @csrf
                         <div class="mb-4">
                             <label class="block text-gray-700 text-sm mb-2" for="image">
-                                Pilih gambar untuk dijadikan cover
+                                Pilih gambar untuk dijadikan illustrasi
                             </label>
                             <input class="appearance-none  w-full py-2 px-3 text-gray-700 leading-tight" id="image" type="file" name="image">
                         </div>
                         <div class="mb-4 flex">
-                            <input type="hidden" name="id" value="{{ $destinasi->id }}">
+                            <input type="hidden" name="id" value="{{ $model->id }}">
                             <button id="image-upload-btn" class="bg-sky-500 hover:bg-sky-700 text-white font-semibold py-1 px-2 rounded text-sm" type="submit">
                                 Upload Image
                             </button>
@@ -115,13 +115,13 @@ $(document).on('submit', '#image-upload-form', function(event) {
 
 
                     <div class=" mt-4 pt-4 sm:mt-0 text-left">
-                        <form method="POST" action="{{ route('destinasi.update', $destinasi->id) }}">
+                        <form method="POST" action="{{ route('layanan.update', $model->id) }}">
                             @csrf
                             @method('PUT')
                             
                             <div class="mb-6">
-                                <label for="nama" class="{{ $label_style }}">Nama Destinasi</label>
-                                <input name="nama" type="text" id="nama" class="{{ $input_style }}" placeholder="Tulis nama destinasi" value="{{ $destinasi->nama }}" required>
+                                <label for="nama" class="{{ $label_style }}">Nama Layanan</label>
+                                <input name="nama" type="text" id="nama" class="{{ $input_style }}" placeholder="Tulis nama destinasi" value="{{ $model->nama }}" required>
                                 @error('nama')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -129,42 +129,18 @@ $(document).on('submit', '#image-upload-form', function(event) {
                                 @enderror
                             </div>
 
-                            <div class="mb-6">
-                                <label for="lokasi" class="{{ $label_style }}">Lokasi</label>
-                                <input name="lokasi" type="text" id="lokasi" class="{{ $input_style }}" placeholder="Tulis lokasi destinasi" value="{{ $destinasi->lokasi }}" required>
-                                @error('lokasi')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            
+                           
                             <div class="mb-6">
                                 <label for="keterangan" class="{{ $label_style }}">Caption</label>
-                                <input name="keterangan" type="text" id="keterangan" class="{{ $input_style }}" placeholder="Tulis caption" value="{{ $destinasi->keterangan }}">
-                                @error('jeterangan')
+                                <input name="keterangan" type="text" id="keterangan" class="{{ $input_style }}" placeholder="Tulis caption" value="{{ $model->keterangan }}">
+                                @error('keterangan')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
 
-                            <div class="mb-6">
-                                <div class="flex items-center">
-                                    @if($destinasi->favorit == 1)
-                                        <input checked id="favorit" name="favorit" id="checked-checkbox" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    @else
-                                        <input id="favorit" name="favorit" id="checked-checkbox" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    @endif
-                                    <label for="checked-checkbox" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Destinasi favorit / populer?</label>
-                                </div>
-                                @error('favorit')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-
+                            
                             <button type="submit" class="{{ $main_button }}">Simpan Perubahan</button>
                         </form>    
 
@@ -186,22 +162,20 @@ $(document).on('submit', '#image-upload-form', function(event) {
             </div>
 
             <div class="basis-6/12 md:ml-4 my-12 md:my-0 bg-white px-6 py-8">
-                <h1 class="mb-6 font-bold">Preview Destinasi</h1>
-                <div class="rounded-lg h-64 overflow-hidden">
-                @if ($coverUrl)
-                    <img src="{{ $coverUrl }}" alt="Cover Image" id="image-cover">
-                @else
-                    <img id="image-cover" alt="content" class="object-cover object-center h-full w-full" src="https://dummyimage.com/1200x500">
-                @endif
-                    
-                </div>
-                <div class="mt-2">
-                    <div class=" mt-4 pt-4 sm:mt-0 text-center sm:text-left">
-                        <h1 class="font-semibold text-2xl">{{ $destinasi->nama }}</h1>
-                        <div>
-                            <span class="text-slate-400 text-sm">{{ $destinasi->lokasi }}</span>
-                            
-                        </div>
+                <h1 class="mb-6 font-bold">Preview</h1>
+
+                <div class="p-4 flex flex-col text-center items-center">
+                    <div class="mb-5">
+                        <img id="image-cover" width="55" src="{{ $model->cover ? asset('storage/img/'.$model->cover) : 'https://dummyimage.com/1200x500' }}"/>
+                    </div>
+                    <div class="flex-grow">
+                        <h2 class="text-gray-900 text-lg title-font font-medium mb-3">{{ $model->nama }}</h2>
+                        <p class="leading-relaxed text-base">{{ $model->keterangan }}</p>
+                        <a class="mt-3 text-indigo-500 inline-flex items-center">Learn More
+                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
+                            <path d="M5 12h14M12 5l7 7-7 7"></path>
+                        </svg>
+                        </a>
                     </div>
                 </div>
             </div>

@@ -2,7 +2,9 @@
     $input_style = 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500';
     $label_style = 'block mb-2 text-sm font-medium text-gray-900 dark:text-white';
     $main_button = 'text-white bg-gray-700 hover:bg-blugraye-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800';
-    $coverUrl = $destinasi->cover ? asset('storage/img/destinasi/' . $destinasi->cover) : null;
+    $coverUrl = $team->foto ? asset('storage/img/team/' . $team->foto) : null;
+    
+
 ?>
 
 @push('styles')
@@ -94,7 +96,7 @@ $(document).on('submit', '#image-upload-form', function(event) {
                             <input class="appearance-none  w-full py-2 px-3 text-gray-700 leading-tight" id="image" type="file" name="image">
                         </div>
                         <div class="mb-4 flex">
-                            <input type="hidden" name="id" value="{{ $destinasi->id }}">
+                            <input type="hidden" name="id" value="{{ $team->id }}">
                             <button id="image-upload-btn" class="bg-sky-500 hover:bg-sky-700 text-white font-semibold py-1 px-2 rounded text-sm" type="submit">
                                 Upload Image
                             </button>
@@ -115,13 +117,13 @@ $(document).on('submit', '#image-upload-form', function(event) {
 
 
                     <div class=" mt-4 pt-4 sm:mt-0 text-left">
-                        <form method="POST" action="{{ route('destinasi.update', $destinasi->id) }}">
+                        <form method="POST" action="{{ route('team.update', $team->id) }}">
                             @csrf
                             @method('PUT')
                             
                             <div class="mb-6">
                                 <label for="nama" class="{{ $label_style }}">Nama Destinasi</label>
-                                <input name="nama" type="text" id="nama" class="{{ $input_style }}" placeholder="Tulis nama destinasi" value="{{ $destinasi->nama }}" required>
+                                <input name="nama" type="text" id="nama" class="{{ $input_style }}" placeholder="Tulis nama destinasi" value="{{ $team->nama }}" required>
                                 @error('nama')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -130,9 +132,9 @@ $(document).on('submit', '#image-upload-form', function(event) {
                             </div>
 
                             <div class="mb-6">
-                                <label for="lokasi" class="{{ $label_style }}">Lokasi</label>
-                                <input name="lokasi" type="text" id="lokasi" class="{{ $input_style }}" placeholder="Tulis lokasi destinasi" value="{{ $destinasi->lokasi }}" required>
-                                @error('lokasi')
+                                <label for="posisi" class="{{ $label_style }}">Posisi</label>
+                                <input value="{{ $team->posisi }}" name="posisi" type="text" id="posisi" class="{{ $input_style }}" placeholder="Posisi (ex. Team leader etc)" required>
+                                @error('posisi')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -141,8 +143,8 @@ $(document).on('submit', '#image-upload-form', function(event) {
                             
                             <div class="mb-6">
                                 <label for="keterangan" class="{{ $label_style }}">Caption</label>
-                                <input name="keterangan" type="text" id="keterangan" class="{{ $input_style }}" placeholder="Tulis caption" value="{{ $destinasi->keterangan }}">
-                                @error('jeterangan')
+                                <input value="{{ $team->keterangan }}" name="keterangan" type="text" id="keterangan" class="{{ $input_style }}" placeholder="Tulis caption">
+                                @error('keterangan')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -150,20 +152,35 @@ $(document).on('submit', '#image-upload-form', function(event) {
                             </div>
 
                             <div class="mb-6">
-                                <div class="flex items-center">
-                                    @if($destinasi->favorit == 1)
-                                        <input checked id="favorit" name="favorit" id="checked-checkbox" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    @else
-                                        <input id="favorit" name="favorit" id="checked-checkbox" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    @endif
-                                    <label for="checked-checkbox" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Destinasi favorit / populer?</label>
-                                </div>
-                                @error('favorit')
+                                <label for="ig" class="{{ $label_style }}">Instagram</label>
+                                <input value="{{ $team->ig }}" name="ig" type="text" id="ig" class="{{ $input_style }}" placeholder="Url Instagram">
+                                @error('ig')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
+
+                            <div class="mb-6">
+                                <label for="twitter" class="{{ $label_style }}">Twitter</label>
+                                <input value="{{ $team->twitter }}" name="twitter" type="text" id="twitter" class="{{ $input_style }}" placeholder="Url Twitter">
+                                @error('twitter')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="mb-6">
+                                <label for="wa" class="{{ $label_style }}">Whatsapp</label>
+                                <input value="{{ $team->wa }}" name="wa" type="text" id="wa" class="{{ $input_style }}" placeholder="Tulis nomor WA">
+                                @error('wa')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            
 
                             <button type="submit" class="{{ $main_button }}">Simpan Perubahan</button>
                         </form>    
@@ -186,24 +203,46 @@ $(document).on('submit', '#image-upload-form', function(event) {
             </div>
 
             <div class="basis-6/12 md:ml-4 my-12 md:my-0 bg-white px-6 py-8">
-                <h1 class="mb-6 font-bold">Preview Destinasi</h1>
-                <div class="rounded-lg h-64 overflow-hidden">
-                @if ($coverUrl)
-                    <img src="{{ $coverUrl }}" alt="Cover Image" id="image-cover">
-                @else
-                    <img id="image-cover" alt="content" class="object-cover object-center h-full w-full" src="https://dummyimage.com/1200x500">
-                @endif
-                    
-                </div>
-                <div class="mt-2">
-                    <div class=" mt-4 pt-4 sm:mt-0 text-center sm:text-left">
-                        <h1 class="font-semibold text-2xl">{{ $destinasi->nama }}</h1>
-                        <div>
-                            <span class="text-slate-400 text-sm">{{ $destinasi->lokasi }}</span>
-                            
+                <h1 class="mb-6 font-bold">Preview Team</h1>
+                <div class="">
+                    <div class="h-full flex flex-col items-center text-center">
+                        
+                        @if ($coverUrl)
+                            <img src="{{ $coverUrl }}" class="flex-shrink-0 rounded-t-lg border-b-4 border-yellow-300 w-full object-cover object-center mb-4" alt="Cover Image" id="image-cover">
+                        @else
+                            <img id="image-cover" alt="content" class="object-cover object-center h-full w-full" src="https://dummyimage.com/1200x500">
+                        @endif
+                        <div class="w-full">
+                        <h2 class="title-font font-medium text-lg text-gray-900">{{ $team->nama }}</h2>
+                        <h3 class="text-gray-500 mb-3">{{ $team->posisi }}</h3>
+                        <p class="mb-4">{{ $team->keterangan }}</p>
+                        <span class="inline-flex">
+                        @if ($team->ig != null)
+                            <a href="{{ $team->ig }}" target="_blank" class="text-gray-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                            </a>
+                        @endif
+
+                        @if ($team->twitter != null)
+                            <a href="{{ $team->ig }}" target="_blank" class="ml-2 text-gray-500">
+                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                                    <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
+                                </svg>
+                            </a>
+                        @endif
+                        
+                        @if ($team->wa != null)
+                            <a href="https://wa.me/{{ $team->wa }}" target="_blank" class="ml-2 text-gray-500">
+                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                                    <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"></path>
+                                </svg>
+                            </a>
+                        @endif
+
+                        </span>
                         </div>
                     </div>
-                </div>
+                    </div>
             </div>
 
         </div>

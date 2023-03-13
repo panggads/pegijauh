@@ -16,32 +16,22 @@
 <x-app-layout>
     <div class="pb-4 ">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Tambah Destinasi') }}
+            {{ __('Tambah Layanan') }}
         </h2>
     </div>
 
 
     <div class="block p-6 rounded-lg shadow-lg bg-white">
-        <!--div class="card-header">Tambah Destinasi</div-->
+        <!--div class="card-header">Tambah Layanan</div-->
         <div class="card-body">
 
-            <form method="POST" action="{{ route('destinasi.store') }}">
+            <form method="POST" action="{{ route('layanan.store') }}">
                 @csrf
                 
                 <div class="mb-6">
-                    <label for="nama" class="{{ $label_style }}">Nama Destinasi</label>
-                    <input name="nama" type="text" id="nama" class="{{ $input_style }}" placeholder="Tulis nama Destinasi" required>
+                    <label for="nama" class="{{ $label_style }}">Nama Layanan</label>
+                    <input name="nama" type="text" id="nama" class="{{ $input_style }}" placeholder="Tulis nama Layanan" required>
                     @error('nama')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-
-                <div class="mb-6">
-                    <label for="lokasi" class="{{ $label_style }}">Lokasi</label>
-                    <input name="lokasi" type="text" id="lokasi" class="{{ $input_style }}" placeholder="Lokasi (ex. Banyuwangi, Jawa Timur)" required>
-                    @error('lokasi')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -50,8 +40,8 @@
                 
                 <div class="mb-6">
                     <label for="keterangan" class="{{ $label_style }}">Caption</label>
-                    <input name="keterangan" type="text" id="keterangan" class="{{ $input_style }}" placeholder="Tulis caption (ex. Experience the wonder of Papuma)" required>
-                    @error('keterangan')
+                    <input name="keterangan" type="text" id="keterangan" class="{{ $input_style }}" placeholder="Tulis caption (ex. Experience the wonder of Papuma)">
+                    @error('nama')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
