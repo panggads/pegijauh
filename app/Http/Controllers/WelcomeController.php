@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Destinasi;
+use App\Models\DestinasiGaleri;
 use App\Models\Team;
 use App\Models\Layanan;
 
@@ -19,7 +20,9 @@ class WelcomeController extends Controller
 
         $services = Layanan::get();
 
-        return view('welcome', compact('destinasis', 'favorits', 'teams', 'services'));
+        $galeris = DestinasiGaleri::get();
+
+        return view('welcome', compact('destinasis', 'favorits', 'teams', 'services', 'galeris'));
     }
 
     public function read($id){

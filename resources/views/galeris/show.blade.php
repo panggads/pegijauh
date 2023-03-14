@@ -101,7 +101,7 @@
                                 <h2 class="tracking-widest text-sm title-font font-medium text-indigo-500 mb-1">{{ $model->nama }}</h2>
                                 <p class="leading-relaxed">{{ $data->keterangan }}</p>
                                 <div class="flex mt-3 gap-3">
-                                    <button class="px-3 py-1 bg-slate-100 text-sm rounded-md">Edit Caption</button>
+                                   
                                     <button class="px-3 py-1 bg-slate-100 text-sm rounded-md"
                                     onclick="event.preventDefault(); if (confirm('Are you sure you want to delete this item?')) { document.getElementById('delete-form-{{$data->id}}').submit(); }"
                                     >Delete</button>
@@ -121,14 +121,4 @@
         </div>
     </section>
 </section>
-
-<!-- Modal toggle -->
-<button id="open-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="button">
-  Toggle modal
-</button>
-
-
-
-
-
 </x-app-layout>
