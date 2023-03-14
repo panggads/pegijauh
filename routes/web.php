@@ -17,7 +17,10 @@ use App\Http\Controllers\WelcomeController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/', [WelcomeController::class, 'index']);
+Route::get('/', [WelcomeController::class, 'index'])->name('/');
+Route::get('/destinations', [WelcomeController::class, 'destinasi'])->name('destinations');
+Route::get('/gallerys', [WelcomeController::class, 'galeri'])->name('gallerys');
+Route::get('/about', [WelcomeController::class, 'about'])->name('about');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

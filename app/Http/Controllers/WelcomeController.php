@@ -22,13 +22,20 @@ class WelcomeController extends Controller
 
         $galeris = DestinasiGaleri::get();
 
-        return view('welcome', compact('destinasis', 'favorits', 'teams', 'services', 'galeris'));
+        return view('sites.welcome', compact('destinasis', 'favorits', 'teams', 'services', 'galeris'));
     }
 
-    public function read($id){
-        $detail = Berita::findOrFail($id);
-        $beritas = Berita::latest()->take(6)->get();
-        $medialains = MediaLain::latest()->take(6)->get();
-        return view('site.berita.read', compact('detail', 'medialains', 'beritas'));
+    public function destinasi(){
+        $destinasis = Destinasi::latest()->get();
+        return view('sites.destinasi', compact('destinasis'));
+    }
+
+    public function galeri(){
+        $galeris = DestinasiGaleri::get();
+        return view('sites.galeri', compact('galeris'));
+    }
+
+    public function about(){
+        return view('sites.about');
     }
 }
