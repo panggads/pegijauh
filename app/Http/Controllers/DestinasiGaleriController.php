@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Destinasi;
 use App\Models\DestinasiGaleri;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class DestinasiGaleriController extends Controller
 {
@@ -56,7 +58,7 @@ class DestinasiGaleriController extends Controller
         return redirect()->route('galeri.show', $destinasi->id)->with('success', $galeri->nama.' created successfully.');
     }
 
-    /**
+    /** 
      * Display the specified resource.
      */
     public function show(string $id)
@@ -69,9 +71,10 @@ class DestinasiGaleriController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $model = DestinasiGaleri::findOrFail($id);
+        return view('galeris._edit', compact('model'));
     }
 
     /**
@@ -85,9 +88,15 @@ class DestinasiGaleriController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(DestinasiGaleri $galeri)
     {
-        //
+
+        $cover_path = Storage::url('public/img/galeri/' . $galeri->foto);
+        if (File::exists($cover_path)) {
+            File::delete($cover_path);
+        }
+        $galeri->delete();
+        return redirect()->route('galeri.show', $galeri->id_destinasi)->with('success', $galeri->nama.' deleed successfully.');
     }
 
     
